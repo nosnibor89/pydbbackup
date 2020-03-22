@@ -14,5 +14,13 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/nosnibor89/pgbackup",
-    packages=find_packages('src')
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    python_requires='>=3.6',
+    install_requires=['boto3'],
+    entry_points={
+        'console_scripts': [
+            'pgbackup=pgbackup.cli:main'
+        ]
+    }
 )
