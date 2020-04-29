@@ -33,6 +33,17 @@ Follow these steps to start developing with this project:
 
 1. Ensure `pip` and `pipenv` are installed
 2. Clone repository: `git clone git@github.com:example/pgbackup`
-3. `cd` into the repository
+3. `cd` into the repository like `cd pgbackup`
 4. Activate virtualenv: `pipenv shell`
 5. Install dependencies: `pipenv install`
+
+Running Tests
+-------------
+
+Run tests locally using ``make`` if virtualenv is active:
+
+    $ make
+
+If virtualenv isn’t active then use:
+
+    $ pipenv run make
