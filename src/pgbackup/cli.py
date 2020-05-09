@@ -1,9 +1,15 @@
 from argparse import ArgumentParser, Action
 
+allowed_drives = ['local', 's3']
+
 
 class DriverAction(Action):
     def __call__(self, parses, namespace, values, option_string=None):
         driver, destination = values
+
+        if driver.lower() not in allowed_drives:
+            raise ValueError('Incorrect values for --driver')
+
         namespace.driver = driver.lower()
         namespace.destination = destination
 
@@ -30,7 +36,6 @@ def create_parser():
 
 
 def main():
-    import boto3
     import time
     from pgbackup import pgdump, storage
     from pgbackup.remotes import aws
@@ -46,8 +51,8 @@ def main():
         storage.remote(s3_client, dump.stdout, args.destination, file_name)
 
     else:
-        localfile = open(args.destination, 'wb')
+        local_file = open(args.destination, 'wb')
         print('Backing database up to local directory')
-        storage.local(dump.stdout, localfile)
+        storage.local(dump.stdout, local_file)
 
     print('Done!')
