@@ -1,6 +1,7 @@
 import sys
 import subprocess
 
+
 def dump(url):
     from pgbackup import config
 
