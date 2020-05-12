@@ -22,3 +22,21 @@ def test_handle_os_errors(mocker):
 
     with pytest.raises(SystemExit):
         assert pgdump.dump(url)
+
+
+def test_dump_file_name_without_timestamp():
+    """
+    pg_dump.dump_file_name returns the file name without timestamp
+    """
+    file_name = pgdump.dump_file_name(url)
+    assert file_name == 'db_one.sql'
+
+
+def test_dump_file_name_with_timestamp():
+    """
+    pg_dump.dump_file_name returns the file name with timestamp
+    """
+    import time
+    now = time.localtime()
+    file_name = pgdump.dump_file_name(url, now)
+    assert file_name == f'db_one-{now}.sql'
